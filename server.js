@@ -17,6 +17,11 @@ app.get('/', (req, res) => {
 
 });
 
+app.use((req, res, next) => {
+  res.header('Access-Control-Allow-Origin', 'http://localhost:3004');
+  res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
+  next();
+});
 
 /* Ruta GET del servidor que lee un fichero Json */
 app.get('/json', (req, res) => {
