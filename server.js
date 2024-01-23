@@ -17,11 +17,6 @@ app.get('/', (req, res) => {
 
 });
 
-app.use((req, res, next) => {
-  res.header('Access-Control-Allow-Origin', 'http://localhost:3004');
-  res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
-  next();
-});
 
 /* Ruta GET del servidor que lee un fichero Json */
 app.get('/json', (req, res) => {
@@ -64,7 +59,7 @@ app.get('/rss', async(req, res) => {
 
 app.get('/atom', async (req, res) => {
   try {
-      const response = await axios.get('https://www.mujerhoy.com/rss/atom/?section=vivir');
+      const response = await axios.get('https://www.mujerhoy.com/rss/atom/?section=belleza');
       const xml = response.data;
       
       xml2js.parseString(xml, { explicitArray: false }, (err, result) => {
