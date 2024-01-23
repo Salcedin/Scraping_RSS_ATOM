@@ -67,3 +67,25 @@ a {
 body{
     background-color: #ddd;
 }
+
+
+@media only screen and (max-width: 768px) {
+    header {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    h1,
+    a {
+        margin-left: 0;
+        margin-top: 10px; /* Agregado espacio entre el título y el enlace */
+    }
+
+    #logo {
+        margin-right: 0;
+    }
+
+    #enlace {
+        font-size: 24px; /* Tamaño de fuente reducido para dispositivos móviles */
+    }
+}
