@@ -89,3 +89,8 @@ body{
         font-size: 24px; /* Tamaño de fuente reducido para dispositivos móviles */
     }
 }
+
+iframe {
+    display: block;
+    margin: auto;
+  }
