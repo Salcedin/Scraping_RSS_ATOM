@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <title>Noticias RSS</title>
+    <link rel="stylesheet" href="css/stylesRSS.css" id="enlace">
+</head>
+
+<body>
+
+    <!-- Cabecera de la Web -->
+    <header>
+        <h1>Noticias RSS</h1>
+        <a href="index.html" id="enlace">Perfumeria Salcedin</a>
+    </header>
+
+
+    <div id="noticias-container"></div>
+
+    <script>
+        // Función para realizar la solicitud al servidor y mostrar las noticias
+        async function obtenerNoticias() {
+            try {
+                const response = await fetch('/rss');
+                const noticias = await response.json();
+
+                // Llamar a la función para renderizar las noticias en el DOM
+                renderizarNoticias(noticias.rss.channel.item);
+            } catch (error) {
+                console.error('Error al obtener las noticias:', error);
+            }
+        }
+
+        // Función para renderizar las noticias en el DOM
+        function renderizarNoticias(noticias) {
+            const noticiasContainer = document.getElementById('noticias-container');
+
+            noticias.forEach((noticia) => {
+                const noticiaElement = document.createElement('div');
+
+                noticiaElement.innerHTML = `
+      <h2>${noticia.title}</h2>
+      <p>${noticia.description}</p>
+      <p>Autor: ${noticia['dc:creator']}</p>
+      <a href="${noticia.link}" target="_blank">Leer más</a>
+      ${obtenerImagen(noticia)}
+      <p>Fecha de publicación: ${noticia.pubDate}</p>
+      <hr>
+    `;
+
+                noticiasContainer.appendChild(noticiaElement);
+            });
+        }
+
+        // Función para obtener la URL de la imagen de la noticia
+        function obtenerImagen(noticia) {
+            if (noticia.enclosure && noticia.enclosure.$.type.startsWith('image/')) {
+                return `<img src="${noticia.enclosure.$.url}" alt="${noticia.title}">`;
+            } else {
+                return '';
+            }
+        }
+
+        // Llamar a la función para obtener y mostrar las noticias al cargar la página
+        document.addEventListener('DOMContentLoaded', obtenerNoticias);
+    </script>
+
+</body>
+<style>
+    h2 {
+        color: #3498db;
+        /* Color del texto */
+        font-size: 2.5em;
+        /* Tamaño de la fuente */
+        text-align: left;
+        /* Alineación del texto */
+        margin-bottom: 20px;
+        /* Margen inferior */
+    }
+
+    /* Estilo para la etiqueta p */
+    p {
+        color: #555;
+        /* Color del texto */
+        font-size: 1.2em;
+        /* Tamaño de la fuente */
+        line-height: 1.6;
+        /* Altura de línea */
+        margin-bottom: 15px;
+        /* Margen inferior */
+    }
+
+    /* Agregar un poco de espacio entre los párrafos */
+    p+p {
+        margin-top: 15px;
+    }
+
+    hr {
+        position: relative;
+        top: 20px;
+        border: none;
+        height: 12px;
+        background: black;
+        margin-bottom: 50px;
+    }
+</style>
+
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* <style>
+    header {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 20px;
+        background-color: #222;
+        color: white;
+        font-size: 20px
+    }
+</style> */
