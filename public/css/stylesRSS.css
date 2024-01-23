@@ -67,3 +67,37 @@ hr {
     background: black;
     margin-bottom: 50px;
 }
+
+@media only screen and (max-width: 768px) {
+    header {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    h1,
+    #enlace {
+        margin-left: 0;
+        margin-top: 10px; /* Agregado espacio entre el título y el enlace */
+    }
+
+    #logo {
+        margin-right: 0;
+    }
+
+    #enlace {
+        font-size: 24px; /* Tamaño de fuente reducido para dispositivos móviles */
+    }
+
+    h2 {
+        font-size: 2em; /* Tamaño de fuente reducido para dispositivos móviles */
+    }
+
+    p {
+        font-size: 1em; /* Tamaño de fuente reducido para dispositivos móviles */
+        margin-bottom: 10px; /* Reducción del margen inferior */
+    }
+
+    hr {
+        margin-bottom: 30px; /* Reducción del margen inferior */
+    }
+}
